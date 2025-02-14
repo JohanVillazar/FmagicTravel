@@ -20,7 +20,7 @@ const UserProfile = () => {
     const fetchUserData = async () => {
       try {
 
-        const response = await axios.get(`http://localhost:5000/api/reservations/user/${user._id}`);
+        const response = await axios.get(`https://magictravel.onrender.com/api/reservations/user/${user._id}`);
         //console.log("Reservas obtenidas ", response.data);
 
         setReservations(Array.isArray(response.data) ? response.data : []);
@@ -59,7 +59,7 @@ const UserProfile = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5000/api/${_id}/estado`, {
+      const response = await fetch(`https://magictravel.onrender.com/api/${_id}/estado`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

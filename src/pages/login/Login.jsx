@@ -33,7 +33,7 @@ const Login = ({ onRegisterClick }) => {
     dispatch({ type: "LOGIN_START" });
   
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", credentials , {
+      const res = await axios.post("https://magictravel.onrender.com/api/auth/login", credentials , {
         //withCredentials: true,
       });
       const token = res.data.token;

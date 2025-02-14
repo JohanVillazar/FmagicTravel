@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const PropertyList = () => {
   const { data, loading } = useFetch(
-    "http://localhost:5000/api/hotels/countByType"
+    "https://magictravel.onrender.com/api/hotels/countByType"
   );
   //console.log(data)
 const navigate = useNavigate();

@@ -15,7 +15,7 @@ import success from "./success-svgrepo-com.svg";
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading } = useFetch(
-    `http://localhost:5000/api/hotels/room/${hotelId}`
+    `https://magictravel.onrender.com/api/hotels/room/${hotelId}`
   );
   const { dates } = useContext(SearchContext);
   const [modal, setModal] = useState(false);
@@ -71,7 +71,7 @@ const Reserve = ({ setOpen, hotelId }) => {
 
       const roomDetails = await Promise.all(
         selectedRooms.map(async (roomId) => {
-          const res = await axios.get(`http://localhost:5000/api/rooms/${roomId}`);
+          const res = await axios.get(`https://magictravel.onrender.com/api/rooms/${roomId}`);
           return res.data; // Suponiendo que res.data contiene la habitación con su precio
         })
       );
@@ -107,7 +107,7 @@ const Reserve = ({ setOpen, hotelId }) => {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/reservations",
+        "https://magictravel.onrender.com/api/reservations",
         reservationData,
         { headers }
       );
