@@ -64,7 +64,7 @@ const List = () => {
   });
 
   const { data, loading } = useFetch(
-    `https://magictravel.onrender.com/api/hotels`
+    `https://magictreavel.onrender.com/api/hotels`
   );
 
   const handleChange = (event) => {
