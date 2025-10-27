@@ -8,11 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import loginimage from "./image/loginimage.png";
 import Cookies from "js-cookie";
 
-
 const Login = ({ onRegisterClick }) => {
   const [credentials, setCredentials] = useState({
-    username: "user",
-    password: "12345678",
+    email: "",         // ✅ cambiado de username → email
+    password: "",
   });
 
   const { loading, error, dispatch } = useContext(AuthContext);
@@ -25,41 +24,48 @@ const Login = ({ onRegisterClick }) => {
   }, [error]);
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setCredentials((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
   };
 
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
-  
-    try {
-      const res = await axios.post("https://magictreavel.onrender.com/api/auth/login", credentials , {
-        //withCredentials: true,
-      });
-      const token = res.data.token;
-      
-  
-      if (token) {
-        //console.log("token recibido ", token); // Verificar que el token se recibe
-  
-        localStorage.setItem("token", token); // Guardar el token correctamente
-        localStorage.setItem("user", JSON.stringify(res.data.details)); // Guardar el usuario
 
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
-  
+    try {
+      const res = await axios.post(
+        "https://magictreavel.onrender.com/api/auth/login",
+        credentials
+      );
+
+      const token = res.data.token;
+
+      if (token) {
+        // ✅ Guardar token y datos del usuario
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(res.data.details));
+
+        // ✅ Configurar token para futuras peticiones
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
 
-  
-        toast.success("Sesion iniciada con exito");
+        toast.success("Sesión iniciada con éxito");
         setTimeout(() => navigate(-1), 2000);
       } else {
         console.error("❌ No se recibió un token válido del backend");
       }
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response?.data || "Error desconocido" });
+      console.error("Error al iniciar sesión:", err.response?.data || err);
+      dispatch({
+        type: "LOGIN_FAILURE",
+        payload: err.response?.data || "Error desconocido",
+      });
     }
   };
-  
+
   return (
     <section className="vh-100 login-mdb">
       <ToastContainer autoClose={2000} />
@@ -78,23 +84,25 @@ const Login = ({ onRegisterClick }) => {
                         Ingresa con tu cuenta
                       </h5>
 
+                      {/* ✅ Campo de correo */}
                       <div className="mb-3">
-                        <label htmlFor="username" className="form-label">
-                          Usuario (Sensible a mayúsculas)
+                        <label htmlFor="email" className="form-label">
+                          Correo electrónico
                         </label>
                         <input
-                          value={credentials.username}
-                          type="text"
+                          value={credentials.email}
+                          type="email"
                           className="form-control form-control-lg"
-                          id="username"
+                          id="email"
                           onChange={handleChange}
-                          placeholder="Ejemplo: phillip"
+                          placeholder="Ejemplo: usuario@gmail.com"
                         />
                       </div>
 
+                      {/* Campo de contraseña */}
                       <div className="mb-3">
                         <label htmlFor="password" className="form-label">
-                          Password
+                          Contraseña
                         </label>
                         <input
                           value={credentials.password}
@@ -106,6 +114,7 @@ const Login = ({ onRegisterClick }) => {
                         />
                       </div>
 
+                      {/* Botón de login */}
                       <div className="pt-1 mb-4">
                         <button
                           className="btn btn-dark btn-lg btn-block"
@@ -124,8 +133,10 @@ const Login = ({ onRegisterClick }) => {
                           Ingresar
                         </button>
                       </div>
+
+                      {/* Enlace a registro */}
                       <div className="registro">
-                      <button
+                        <button
                           type="button"
                           className="register-button"
                           onClick={() => navigate("/register")}
@@ -133,12 +144,6 @@ const Login = ({ onRegisterClick }) => {
                           Regístrate aquí
                         </button>
                       </div>
-
-                    
-                     
-                     
-
-                    
                     </form>
                   </div>
                 </div>
@@ -150,5 +155,4 @@ const Login = ({ onRegisterClick }) => {
     </section>
   );
 };
-
 export default Login;
