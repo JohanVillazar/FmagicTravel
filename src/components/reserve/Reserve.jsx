@@ -71,7 +71,7 @@ const Reserve = ({ setOpen, hotelId }) => {
 
       const roomDetails = await Promise.all(
         selectedRooms.map(async (roomId) => {
-          const res = await axios.get(`https://magictravel.onrender.com/api/rooms/${roomId}`);
+          const res = await axios.get(`https://magictreavel.onrender.com/api/rooms/${roomId}`);
           return res.data; // Suponiendo que res.data contiene la habitación con su precio
         })
       );
@@ -107,7 +107,7 @@ const Reserve = ({ setOpen, hotelId }) => {
       };
 
       const res = await axios.post(
-        "https://magictravel.onrender.com/api/reservations",
+        "https://magictreavel.onrender.com/api/reservations",
         reservationData,
         { headers }
       );
