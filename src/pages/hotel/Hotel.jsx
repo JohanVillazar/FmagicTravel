@@ -34,7 +34,7 @@ const Hotel = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const { images, data, loading } = useFetch(
-    `https://magictravel.onrender.com/api/hotels/find/${id}`
+    `https://magictreavel.onrender.com/api/hotels/find/${id}`
   );
 
   const value= data.rating
