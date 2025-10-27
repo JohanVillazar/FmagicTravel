@@ -4,7 +4,7 @@ import FeaturedItem from "./FeaturedItem";
 
 const FeaturedProperties = () => {
   const { data, loading } = useFetch(
-    "https://magictravel.onrender.com/api/hotels?featured=true&limit=12"
+    "https://magictreavel.onrender.com/api/hotels?featured=true&limit=12"
   );
 
   return (

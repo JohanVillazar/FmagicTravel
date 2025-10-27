@@ -4,7 +4,7 @@ import "./featured.scss";
 
 const Featured = () => {
   const { data, loading, error } = useFetch(
-    "https://magictravel.onrender.com/api/hotels/countByCity?cities=bucaramanga,bogota,medellin,cartagena,santa marta,manizales,chicamocha,cali"
+    "https://magictreavel.onrender.com/api/hotels/countByCity?cities=bucaramanga,bogota,medellin,cartagena,santa marta,manizales,chicamocha,cali"
   );
   const navigate = useNavigate();
 

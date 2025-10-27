@@ -15,7 +15,7 @@ import success from "./success-svgrepo-com.svg";
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading } = useFetch(
-    `https://magictravel.onrender.com/api/hotels/room/${hotelId}`
+    `https://magictreavel.onrender.com/api/hotels/room/${hotelId}`
   );
   const { dates } = useContext(SearchContext);
   const [modal, setModal] = useState(false);
