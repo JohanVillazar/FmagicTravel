@@ -33,7 +33,7 @@ const Featured = () => {
   }
 
   // Aseguramos que 'data' tenga la longitud correcta
-  if (data.length !== cities.length) {
+  if (!data || data.length !== cities.length) {
     return <p style={{ color: "red" }}>Datos incompletos o error en la respuesta del servidor.</p>;
   }
 
